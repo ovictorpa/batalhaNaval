@@ -47,8 +47,8 @@ public class PlaceShipTest {
     @Test
     public void testPlaceShipWithCoordinatesThatExceedBoardLimits() {
         ArrayList<List<Integer>> coordinates = new ArrayList<>();
-        coordinates.add(Arrays.asList(10, 0));
         coordinates.add(Arrays.asList(10, 1));
+        coordinates.add(Arrays.asList(10, 10));
         coordinates.add(Arrays.asList(10, 2));
         assertThrows(IndexOutOfBoundsException.class, () -> {
             ship.placeShip(gameBoard, 3, '-', 'x', coordinates);
@@ -59,7 +59,7 @@ public class PlaceShipTest {
         ArrayList<List<Integer>> coordinates = new ArrayList<>();
         coordinates.add(Arrays.asList(-1, 2));
         coordinates.add(Arrays.asList(1, -1));
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
+        assertThrows(IllegalArgumentException.class, () -> {
             ship.placeShip(gameBoard, 5, '-', 's', coordinates);
         });
     }

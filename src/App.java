@@ -18,13 +18,20 @@ public class App {
         Ship ship = new Ship();
         char[][] board = gameBoard.createGameBoard();
 
-        for(int i = 0; i < gameBoard.shipNumber; i++){
-            int qtd_ship = i + 1;
-            System.out.print("Type the " + qtd_ship +" ship coordinates (row column): ");
+        int numberOfCoordinatesToAdd = 3;
+        while (ship.ships.size() < numberOfCoordinatesToAdd) {
+            System.out.print("Type the ship " + (ship.ships.size()+1) + " coordinates (row column): ");
             int row = scanner.nextInt();
             int column = scanner.nextInt();
             ship.addCoordinates(row, column);
         }
+
+        for(int i = 0; i< 10; i++){
+            System.out.println("Loading...");
+        }
+        System.out.println();
+        System.out.println("--- Welcome to de Naval Battle! ---");
+        System.out.println();
         ship.placeShip(board, gameBoard.shipNumber, gameBoard.water, gameBoard.ship, ship.ships);
         gameBoard.printGameBoard(board, gameBoard.water, gameBoard.ship);
 

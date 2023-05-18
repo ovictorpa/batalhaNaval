@@ -25,7 +25,7 @@ public class GamePlayTest {
     };
     }
     @Test
-    public void testEvaluateGuessAndGetTheTarget_hit() {
+    public void testEvaluateGuessAndGetTheTargetHit() {
         Game game = new Game();
         int[] guessCoordinates = {0,0};
         char expected = 'x';
@@ -33,7 +33,7 @@ public class GamePlayTest {
         assertEquals(expected, actual);
     }
     @Test
-    public void testEvaluateGuessAndGetTheTarget_miss() {
+    public void testEvaluateGuessAndGetTheTargetMiss() {
         Game game = new Game();
         int[] guessCoordinates = {1,1};
         char expected = '0';
@@ -41,7 +41,7 @@ public class GamePlayTest {
         assertEquals(expected, actual);
     }
     @Test
-    public void testEvaluateGuessAndGetTheTarget_alreadyHit() {
+    public void testEvaluateGuessAndGetTheTargetAlreadyHit() {
         Game game = new Game();
         int[] guessCoordinates = {0,0};
         game.evaluateGuessAndGetTheTarget(guessCoordinates, gameBoard, game.ship, game.water, game.hit, game.miss);

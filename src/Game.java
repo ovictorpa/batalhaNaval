@@ -9,49 +9,61 @@ public class Game {
     int shipNumber = 3;
     int undetectedShipNumber = shipNumber;
 
-    public char[][] createGameBoard(){
-        char[][] gameBoard = new char[gameBoardLength][gameBoardLength];
-        for(char[] row : gameBoard){
-            Arrays.fill(row, water);
+    public char[][] createGameBoard() {
+        try {
+            char[][] gameBoard = new char[gameBoardLength][gameBoardLength];
+            for (char[] row : gameBoard) {
+                Arrays.fill(row, water);
+            }
+            return gameBoard;
+        } catch (NegativeArraySizeException e) {
+            System.err.println(e.getMessage());
+            return null;
         }
-        return gameBoard;
     }
-
+    
     public char[][] updateGameBoard(char[][] gameBoard, int[] guessCoordinates, char locationViewUpdate) {
-        int row = guessCoordinates[0];
-        int column = guessCoordinates[1]; 
-        gameBoard[row][column] = locationViewUpdate;
-        return gameBoard;
-    }
-
-    public char evaluateGuessAndGetTheTarget(int[] guessCoordinates, char[][] gameBoard, char ship, char water, char hit, char miss) {
-        String message;
-        int row = guessCoordinates[0];
-        int column = guessCoordinates[1];
-        char target = gameBoard[row][column];
-        if(target == ship) {
-            message = "Hit!";
-            target = hit;
-        } else if (target == water) {
-            message = "Miss!";
-            target = miss;
-        } else {
-            message = "Already hit!";
+        try {
+            int row = guessCoordinates[0];
+            int column = guessCoordinates[1];
+            gameBoard[row][column] = locationViewUpdate;
+            return gameBoard;
+        } catch (NullPointerException e) {
+            System.err.println("Gameboard Is Null");
+            return null;
         }
-        System.out.println(message);
-        return target;
     }
-    public void undetectedShip(char[][] board, int[] coordinates){
+    public char evaluateGuessAndGetTheTarget(int[] guessCoordinates, char[][] gameBoard, char ship, char water, char hit, char miss) {
+            String message;
+            int row = guessCoordinates[0];
+            int column = guessCoordinates[1];
+            char target = gameBoard[row][column];
+            if (target == ship) {
+                message = "Hit!";
+                target = hit;
+            } else if (target == water) {
+                message = "Miss!";
+                target = miss;
+            } else {
+                message = "Already hit!";
+            }
+            System.out.println(message);
+            return target;
+    }
+    
+    public void undetectedShip(char[][] board, int[] coordinates) {
+        try {
             char locationViewUpdate = evaluateGuessAndGetTheTarget(coordinates, board, ship, water, hit, miss);
-            if(locationViewUpdate == hit){
+            if (locationViewUpdate == hit) {
                 undetectedShipNumber--;
             }
             board = updateGameBoard(board, coordinates, locationViewUpdate);
             printGameBoard(board, water, ship);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
     }
-
     public void printGameBoard(char[][] gameBoard, char water, char ship){
-        int gameBoardLength = gameBoard.length;
         System.out.println();
         System.out.print("  ");
         for(int i = 0; i< gameBoardLength; i++){
